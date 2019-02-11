@@ -64,6 +64,7 @@ Android/
 icons/
 Logos/
 Lib/
+store.keystore
 *.~*
 
 # Castalia statistics file (since XE7 Castalia is distributed with Delphi)
