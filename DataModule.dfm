@@ -5,8 +5,9 @@ object DM: TDM
   Width = 580
   object FDConnection: TFDConnection
     Params.Strings = (
-      'Database=E:\Dropbox\projects\SMSSender\db.sqlite3'
+      'Database=C:\Users\jaga\Desktop\SMSSender\db.sqlite3'
       'DriverID=SQLite')
+    Connected = True
     LoginPrompt = False
     Left = 88
     Top = 40

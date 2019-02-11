@@ -1,0 +1,153 @@
+object NumbersDBForm: TNumbersDBForm
+  Left = 0
+  Top = 0
+  Caption = 'Form2'
+  ClientHeight = 543
+  ClientWidth = 415
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 3
+  object ListViewNumbersSidebar: TListView
+    ItemAppearanceClassName = 'TDynamicAppearance'
+    ItemEditAppearanceClassName = 'TDynamicAppearance'
+    HeaderAppearanceClassName = 'TListHeaderObjects'
+    FooterAppearanceClassName = 'TListHeaderObjects'
+    Transparent = True
+    ItemIndex = 0
+    Align = Client
+    Margins.Left = 5.000000000000000000
+    Margins.Top = 5.000000000000000000
+    Margins.Right = 5.000000000000000000
+    Margins.Bottom = 5.000000000000000000
+    Size.Width = 405.000000000000000000
+    Size.Height = 433.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    ItemAppearanceObjects.ItemObjects.ObjectsCollection = <
+      item
+        AppearanceObjectName = 'number'
+        AppearanceClassName = 'TTextObjectAppearance'
+        Appearance.Font.Size = 13.000000000000000000
+        Appearance.TextAlign = Leading
+        Appearance.PlaceOffset.X = 10.000000000000000000
+      end
+      item
+        AppearanceObjectName = 'count'
+        AppearanceClassName = 'TTextObjectAppearance'
+        Appearance.Font.Size = 9.000000000000000000
+        Appearance.TextAlign = Trailing
+        Appearance.TextVertAlign = Leading
+        Appearance.TextColor = claYellowgreen
+        Appearance.Align = Trailing
+        Appearance.VertAlign = Trailing
+        Appearance.PlaceOffset.X = -30.000000000000000000
+      end>
+    ItemAppearanceObjects.ItemEditObjects.ObjectsCollection = <
+      item
+        AppearanceObjectName = 'Text1'
+        AppearanceClassName = 'TTextObjectAppearance'
+      end>
+    ItemAppearanceObjects.HeaderObjects.Text.Visible = False
+    ItemAppearanceObjects.FooterObjects.Text.Visible = False
+    OnDeletingItem = ListViewNumbersSidebarDeletingItem
+  end
+  object Panel2: TPanel
+    Align = Top
+    Margins.Top = 10.000000000000000000
+    Position.Y = 60.000000000000000000
+    Size.Width = 415.000000000000000000
+    Size.Height = 40.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object EditNumber: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Align = Client
+      StyleLookup = 'editstyle'
+      TabOrder = 0
+      KeyboardType = NumberPad
+      Margins.Left = 5.000000000000000000
+      Margins.Top = 5.000000000000000000
+      Margins.Right = 5.000000000000000000
+      Size.Width = 365.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object SpeedButtonSaveNumber: TSpeedButton
+      Align = Right
+      Images = Form1.ImageList1
+      ImageIndex = 0
+      Position.X = 375.000000000000000000
+      Size.Width = 40.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      OnClick = SpeedButtonSaveNumberClick
+    end
+  end
+  object Rectangle1: TRectangle
+    Align = Top
+    Size.Width = 415.000000000000000000
+    Size.Height = 50.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    Stroke.Thickness = 0.100000001490116100
+  end
+  object FDTableNumbers: TFDTable
+    Active = True
+    IndexFieldNames = 'id'
+    AggregatesActive = True
+    Connection = DM.FDConnection
+    UpdateOptions.UpdateTableName = 'numbers'
+    TableName = 'numbers'
+    Left = 56
+    Top = 80
+    object FDTableNumbersid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object FDTableNumberstype_id: TIntegerField
+      FieldName = 'type_id'
+      Origin = 'type_id'
+    end
+    object FDTableNumbersnumber: TIntegerField
+      FieldName = 'number'
+      Origin = 'number'
+    end
+    object FDTableNumberssent_cnt: TIntegerField
+      FieldName = 'sent_cnt'
+      Origin = 'sent_cnt'
+    end
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 60
+    Top = 29
+    object LinkListControlToField1: TLinkListControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      Control = ListViewNumbersSidebar
+      FillExpressions = <
+        item
+          SourceMemberName = 'number'
+          ControlMemberName = 'number'
+        end
+        item
+          SourceMemberName = 'sent_cnt'
+          ControlMemberName = 'count'
+          CustomFormat = #39'sent count: '#39'+%s'
+        end>
+      FillHeaderExpressions = <>
+      FillBreakGroups = <>
+    end
+  end
+  object BindSourceDB1: TBindSourceDB
+    DataSet = FDTableNumbers
+    ScopeMappings = <>
+    Left = 56
+    Top = 144
+  end
+end

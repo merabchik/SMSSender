@@ -42,7 +42,6 @@ begin
     FDConnection.Connected := True;
   end;
 {$ENDIF}
-  Form1.FDTableNumbers.Active := True;
 end;
 
 end.
