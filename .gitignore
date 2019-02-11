@@ -60,6 +60,10 @@
 # Delphi history and backups
 __history/
 __recovery/
+Android/
+icons/
+Logos/
+Lib/
 *.~*
 
 # Castalia statistics file (since XE7 Castalia is distributed with Delphi)
