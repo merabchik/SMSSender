@@ -3,7 +3,7 @@ program SMSSender;
 uses
   System.StartUpCopy,
   FMX.Forms,
-  main in 'main.pas' {Form1},
+  main in 'main.pas' {mainForm},
   DataModule in 'DataModule.pas' {DM: TDataModule},
   NumbersDB in 'NumbersDB.pas' {NumbersDBForm};
 
@@ -11,9 +11,8 @@ uses
 
 begin
   Application.Initialize;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TmainForm, mainForm);
   Application.CreateForm(TDM, DM);
-  Application.CreateForm(TNumbersDBForm, NumbersDBForm);
   Application.Run;
 end.
 

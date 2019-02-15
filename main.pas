@@ -28,7 +28,7 @@ uses
   System.Permissions;
 
 type
-  TForm1 = class(TForm)
+  TmainForm = class(TForm)
     Memo1: TMemo;
     ButtonSendSMS: TButton;
     Panel1: TPanel;
@@ -38,9 +38,11 @@ type
     ImageList1: TImageList;
     ListViewNumbersSidebar: TListView;
     SidebarButton: TButton;
+    Button1: TButton;
     procedure ButtonSendSMSClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     procedure SendSMS(target, messagestr: string);
     procedure Split(Delimiter: Char; Str: string; ListOfStrings: TStrings);
@@ -52,7 +54,7 @@ type
   end;
 
 var
-  Form1: TForm1;
+  mainForm: TmainForm;
 
 implementation
 
@@ -64,7 +66,7 @@ uses DataModule, HelperUnit
     ,
   Androidapi.JNI.Widget,
 {$ENDIF}
-  FMX.DialogService;
+  FMX.DialogService, NumbersDB;
 
 {$IFDEF ANDROID}
 
@@ -79,13 +81,13 @@ begin
 end;
 {$ENDIF}
 
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TmainForm.FormCreate(Sender: TObject);
 begin
   SMSPermissionGranted := 22;
   // TMessageManager.DefaultManager.SubscribeToMessage(self.SMSPermissionRequestResult, self.doSMSPermission);
 end;
 
-procedure TForm1.doSMSPermission;
+procedure TmainForm.doSMSPermission;
 begin
   PermissionsService.requestPermissions
     ([JStringToString(TJManifest_permission.JavaClass.SEND_SMS)],
@@ -103,7 +105,15 @@ begin
     end);
 end;
 
-procedure TForm1.ButtonSendSMSClick(Sender: TObject);
+procedure TmainForm.Button1Click(Sender: TObject);
+begin
+  with TNumbersDBForm.Create(Application) do
+  begin
+    show;
+  end;
+end;
+
+procedure TmainForm.ButtonSendSMSClick(Sender: TObject);
 var
   OutPutList, numbers: TStringList;
   I: Integer;
@@ -117,8 +127,8 @@ begin
     // numbers := '593004003,599200652';
     // ShowMessage(filename);
     // exit;
-    OutPutList := TStringList.create;
-    numbers := TStringList.create;
+    OutPutList := TStringList.Create;
+    numbers := TStringList.Create;
     try
       numbers.LoadFromFile(filename);
       Split(',', numbers.Text, OutPutList);
@@ -136,13 +146,13 @@ begin
   end;
 end;
 
-procedure TForm1.FormShow(Sender: TObject);
+procedure TmainForm.FormShow(Sender: TObject);
 begin
   self.BannerAd1.AdUnitID := 'ca-app-pub-6537744019921634/4591765968';
   self.BannerAd1.LoadAd;
 end;
 
-procedure TForm1.SendSMS(target, messagestr: string);
+procedure TmainForm.SendSMS(target, messagestr: string);
 var
   smsManager: JSmsManager;
   smsTo: JString;
@@ -152,7 +162,7 @@ begin
   smsManager.sendTextMessage(smsTo, nil, StringToJString(messagestr), nil, nil);
 end;
 
-procedure TForm1.Split(Delimiter: Char; Str: string; ListOfStrings: TStrings);
+procedure TmainForm.Split(Delimiter: Char; Str: string; ListOfStrings: TStrings);
 begin
   ListOfStrings.Clear;
   ListOfStrings.Delimiter := Delimiter;

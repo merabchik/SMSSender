@@ -7,7 +7,6 @@ object DM: TDM
     Params.Strings = (
       'Database=C:\Users\jaga\Desktop\SMSSender\db.sqlite3'
       'DriverID=SQLite')
-    Connected = True
     LoginPrompt = False
     Left = 88
     Top = 40
