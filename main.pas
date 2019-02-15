@@ -25,24 +25,22 @@ uses
   IOUtils, FMX.Advertising, FMX.MultiView, FMX.Edit, System.ImageList,
   FMX.ImgList, FMX.ListView.Types, FMX.ListView.Appearances,
   FMX.ListView.Adapters.Base, FMX.ListView,
-  System.Permissions;
+  System.Permissions, FMX.Objects;
 
 type
   TmainForm = class(TForm)
     Memo1: TMemo;
     ButtonSendSMS: TButton;
-    Panel1: TPanel;
     Label1: TLabel;
     BannerAd1: TBannerAd;
-    MultiView: TMultiView;
     ImageList1: TImageList;
-    ListViewNumbersSidebar: TListView;
     SidebarButton: TButton;
-    Button1: TButton;
+    RectangleHeader: TRectangle;
     procedure ButtonSendSMSClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure SidebarButtonClick(Sender: TObject);
   private
     procedure SendSMS(target, messagestr: string);
     procedure Split(Delimiter: Char; Str: string; ListOfStrings: TStrings);
@@ -162,7 +160,16 @@ begin
   smsManager.sendTextMessage(smsTo, nil, StringToJString(messagestr), nil, nil);
 end;
 
-procedure TmainForm.Split(Delimiter: Char; Str: string; ListOfStrings: TStrings);
+procedure TmainForm.SidebarButtonClick(Sender: TObject);
+begin
+  with TNumbersDBForm.Create(Application) do
+  begin
+    Activate;
+  end;
+end;
+
+procedure TmainForm.Split(Delimiter: Char; Str: string;
+ListOfStrings: TStrings);
 begin
   ListOfStrings.Clear;
   ListOfStrings.Delimiter := Delimiter;

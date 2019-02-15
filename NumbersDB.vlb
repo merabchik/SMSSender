@@ -17,9 +17,6 @@ Coordinates=523,111,159,36
 [BindingsList1]
 Coordinates=322,133,91,36
 
-[Panel2]
-Coordinates=118,442,55,36
-
 [FDTableNumbersid]
 Coordinates=322,243,126,36
 
@@ -34,4 +31,7 @@ Coordinates=10,10,159,212
 
 [Form1.]
 Coordinates=689,176,156,36
+
+[]
+Coordinates=118,442,55,36
 

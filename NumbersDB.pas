@@ -13,12 +13,11 @@ uses
   FireDAC.Stan.Async, FireDAC.DApt, Data.Bind.EngExt, FMX.Bind.DBEngExt,
   System.Rtti, System.Bindings.Outputs, FMX.Bind.Editors, Data.Bind.Components,
   Data.Bind.DBScope, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  FMX.Objects;
+  FMX.Objects, FMX.Ani;
 
 type
   TNumbersDBForm = class(TForm)
     ListViewNumbersSidebar: TListView;
-    Panel2: TPanel;
     EditNumber: TEdit;
     SpeedButtonSaveNumber: TSpeedButton;
     FDTableNumbers: TFDTable;
@@ -29,7 +28,9 @@ type
     BindingsList1: TBindingsList;
     LinkListControlToField1: TLinkListControlToField;
     BindSourceDB1: TBindSourceDB;
-    Rectangle1: TRectangle;
+    RectangleHeader: TRectangle;
+    StyleBookNumbersForm: TStyleBook;
+    FloatAnimationNumberInserting: TFloatAnimation;
     procedure SpeedButtonSaveNumberClick(Sender: TObject);
     procedure ListViewNumbersSidebarDeletingItem(Sender: TObject;
       AIndex: Integer; var ACanDelete: Boolean);
@@ -38,6 +39,7 @@ type
     { Private declarations }
   public
     { Public declarations }
+    procedure Activate;
   end;
 
 var
@@ -48,6 +50,11 @@ implementation
 {$R *.fmx}
 
 uses main, DataModule;
+
+procedure TNumbersDBForm.Activate;
+begin
+  self.show;
+end;
 
 procedure TNumbersDBForm.FormCreate(Sender: TObject);
 begin
@@ -75,6 +82,7 @@ begin
     end;
     FDTableNumbers.Refresh;
     SpeedButtonSaveNumber.ImageIndex := 0;
+    FloatAnimationNumberInserting.Start;
   end
   else
   begin

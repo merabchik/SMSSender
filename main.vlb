@@ -1,9 +1,6 @@
 ﻿[Memo1]
 Coordinates=365,10,49,51
 
-[Panel1]
-Coordinates=186,210,47,33
-
 [ImageList1]
 Coordinates=280,265,68,33
 
@@ -14,13 +11,7 @@ Coordinates=97,210,69,33
 Coordinates=302,10,46,51
 
 []
-Coordinates=922,50,99,33
-
-[ListViewNumbersSidebar]
-Coordinates=10,10,89,177
-
-[MultiView]
-Coordinates=10,210,67,33
+Coordinates=186,210,47,33
 
 [ButtonSendSMS]
 Coordinates=127,10,53,51
