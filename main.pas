@@ -25,17 +25,20 @@ uses
   IOUtils, FMX.Advertising, FMX.MultiView, FMX.Edit, System.ImageList,
   FMX.ImgList, FMX.ListView.Types, FMX.ListView.Appearances,
   FMX.ListView.Adapters.Base, FMX.ListView,
-  System.Permissions, FMX.Objects;
+  System.Permissions, FMX.Objects,
+  FMX.Ani, FMX.Layouts, FMX.LoadingIndicator;
 
 type
   TmainForm = class(TForm)
-    Memo1: TMemo;
+    MemoSMSText: TMemo;
     ButtonSendSMS: TButton;
     Label1: TLabel;
     BannerAd1: TBannerAd;
     ImageList1: TImageList;
     SidebarButton: TButton;
     RectangleHeader: TRectangle;
+    RectanglePreloader: TRectangle;
+    FMXLoadingIndicator1: TFMXLoadingIndicator;
     procedure ButtonSendSMSClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -113,7 +116,6 @@ end;
 
 procedure TmainForm.ButtonSendSMSClick(Sender: TObject);
 var
-  OutPutList, numbers: TStringList;
   I: Integer;
   filename: string;
 
@@ -121,26 +123,25 @@ begin
   self.doSMSPermission;
   if SMSPermissionGranted = 1 then
   begin
-    filename := TPath.GetPublicPath + PathDelim + 'numbers.txt';
-    // numbers := '593004003,599200652';
-    // ShowMessage(filename);
-    // exit;
-    OutPutList := TStringList.Create;
-    numbers := TStringList.Create;
     try
-      numbers.LoadFromFile(filename);
-      Split(',', numbers.Text, OutPutList);
-      for I := 0 to OutPutList.Count - 1 do
+      DM.FDTableNumbers.Active := True;
+      DM.FDTableNumbers.First;
+      RectanglePreloader.visible := True;
+      FMXLoadingIndicator1.Enabled := True;
+      while not DM.FDTableNumbers.eof do
       begin
-        self.SendSMS(OutPutList[I], Memo1.Text);
-        Label1.Text := 'Sended SMS: ' + IntToStr(I + 1);
+        self.SendSMS(DM.FDTableNumbers.fieldbyname('number').asString,
+          MemoSMSText.Text);
+        I := I + 1;
+        Label1.Text := 'Sended SMS: ' + IntToStr(I);
+        DM.FDTableNumbers.Next;
       end;
+      RectanglePreloader.visible := False;
+      FMXLoadingIndicator1.Enabled := False;
     Except
       ShowMessage
         ('Please read app description on play.google.com/store/apps/details?id=com.mchikvaidze.SMSSender');
     end;
-    numbers.Free;
-    OutPutList.Free;
   end;
 end;
 

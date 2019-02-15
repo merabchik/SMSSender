@@ -10,7 +10,7 @@ object mainForm: TmainForm
   OnCreate = FormCreate
   OnShow = FormShow
   DesignerMasterStyle = 3
-  object Memo1: TMemo
+  object MemoSMSText: TMemo
     Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
     DataDetectorTypes = []
     Align = Client
@@ -22,8 +22,8 @@ object mainForm: TmainForm
     Size.Height = 370.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
-    Viewport.Width = 644.000000000000000000
-    Viewport.Height = 370.000000000000000000
+    Viewport.Width = 636.000000000000000000
+    Viewport.Height = 362.000000000000000000
     object ButtonSendSMS: TButton
       Align = Bottom
       Margins.Left = 10.000000000000000000
@@ -38,6 +38,25 @@ object mainForm: TmainForm
       TabOrder = 0
       Text = 'Send SMS'
       OnClick = ButtonSendSMSClick
+    end
+    object RectanglePreloader: TRectangle
+      Align = Client
+      Fill.Kind = None
+      Size.Width = 636.000000000000000000
+      Size.Height = 312.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Kind = None
+      Visible = False
+      object FMXLoadingIndicator1: TFMXLoadingIndicator
+        Align = Center
+        HitTest = False
+        Size.Width = 169.000000000000000000
+        Size.Height = 185.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        Color = xFF1282B2
+        Kind = DoubleBounce
+      end
     end
   end
   object BannerAd1: TBannerAd

@@ -7,6 +7,7 @@ object DM: TDM
     Params.Strings = (
       'Database=C:\Users\jaga\Desktop\SMSSender\db.sqlite3'
       'DriverID=SQLite')
+    Connected = True
     LoginPrompt = False
     Left = 88
     Top = 40
@@ -14,5 +15,30 @@ object DM: TDM
   object FDPhysSQLiteDriverLink1: TFDPhysSQLiteDriverLink
     Left = 88
     Top = 96
+  end
+  object FDTableNumbers: TFDTable
+    IndexFieldNames = 'id'
+    Connection = FDConnection
+    UpdateOptions.UpdateTableName = 'numbers'
+    TableName = 'numbers'
+    Left = 272
+    Top = 176
+    object FDTableNumbersid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object FDTableNumberstype_id: TIntegerField
+      FieldName = 'type_id'
+      Origin = 'type_id'
+    end
+    object FDTableNumbersnumber: TIntegerField
+      FieldName = 'number'
+      Origin = 'number'
+    end
+    object FDTableNumberssent_cnt: TIntegerField
+      FieldName = 'sent_cnt'
+      Origin = 'sent_cnt'
+    end
   end
 end

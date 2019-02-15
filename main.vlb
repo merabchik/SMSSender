@@ -1,7 +1,4 @@
-﻿[Memo1]
-Coordinates=365,10,49,51
-
-[ImageList1]
+﻿[ImageList1]
 Coordinates=280,265,68,33
 
 [BannerAd1]
@@ -15,4 +12,7 @@ Coordinates=186,210,47,33
 
 [ButtonSendSMS]
 Coordinates=127,10,53,51
+
+[MemoSMSText]
+Coordinates=365,10,49,51
 
