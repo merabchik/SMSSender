@@ -35,7 +35,11 @@ type
     procedure ListViewNumbersSidebarDeletingItem(Sender: TObject;
       AIndex: Integer; var ACanDelete: Boolean);
     procedure FormCreate(Sender: TObject);
+    procedure EditNumberKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure FloatAnimationNumberInsertingFinish(Sender: TObject);
   private
+    procedure SaveNumber;
     { Private declarations }
   public
     { Public declarations }
@@ -56,6 +60,20 @@ begin
   self.show;
 end;
 
+procedure TNumbersDBForm.EditNumberKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+  begin
+    self.SaveNumber;
+  end;
+end;
+
+procedure TNumbersDBForm.FloatAnimationNumberInsertingFinish(Sender: TObject);
+begin
+  EditNumber.Text := '';
+end;
+
 procedure TNumbersDBForm.FormCreate(Sender: TObject);
 begin
   self.FDTableNumbers.Active := True;
@@ -70,13 +88,18 @@ end;
 
 procedure TNumbersDBForm.SpeedButtonSaveNumberClick(Sender: TObject);
 begin
+  self.SaveNumber;
+end;
+
+procedure TNumbersDBForm.SaveNumber;
+begin
   if not EditNumber.Text.IsEmpty then
   begin
     SpeedButtonSaveNumber.ImageIndex := 1;
     with FDTableNumbers do
     begin
       Insert;
-      fieldByName('number').AsInteger := EditNumber.Text.ToInteger;
+      fieldByName('number').AsString := EditNumber.Text;
       fieldByName('sent_cnt').AsInteger := 0;
       Post;
     end;

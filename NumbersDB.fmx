@@ -71,10 +71,12 @@ object NumbersDBForm: TNumbersDBForm
       Size.Width = 365.000000000000000000
       Size.Height = 50.000000000000000000
       Size.PlatformDefault = False
+      OnKeyDown = EditNumberKeyDown
       object FloatAnimationNumberInserting: TFloatAnimation
         AutoReverse = True
         Enabled = True
-        Duration = 0.500000000000000000
+        Duration = 0.200000002980232200
+        OnFinish = FloatAnimationNumberInsertingFinish
         PropertyName = 'Margins.Top'
         StartValue = 5.000000000000000000
         StartFromCurrent = True
@@ -92,62 +94,6 @@ object NumbersDBForm: TNumbersDBForm
       Size.PlatformDefault = False
       OnClick = SpeedButtonSaveNumberClick
     end
-  end
-  object FDTableNumbers: TFDTable
-    IndexFieldNames = 'id'
-    AggregatesActive = True
-    Connection = DM.FDConnection
-    UpdateOptions.UpdateTableName = 'numbers'
-    TableName = 'numbers'
-    Left = 56
-    Top = 80
-    object FDTableNumbersid: TFDAutoIncField
-      FieldName = 'id'
-      Origin = 'id'
-      ProviderFlags = [pfInWhere, pfInKey]
-      ReadOnly = True
-    end
-    object FDTableNumberstype_id: TIntegerField
-      FieldName = 'type_id'
-      Origin = 'type_id'
-    end
-    object FDTableNumbersnumber: TIntegerField
-      FieldName = 'number'
-      Origin = 'number'
-    end
-    object FDTableNumberssent_cnt: TIntegerField
-      FieldName = 'sent_cnt'
-      Origin = 'sent_cnt'
-    end
-  end
-  object BindingsList1: TBindingsList
-    Methods = <>
-    OutputConverters = <>
-    Left = 60
-    Top = 29
-    object LinkListControlToField1: TLinkListControlToField
-      Category = 'Quick Bindings'
-      DataSource = BindSourceDB1
-      Control = ListViewNumbersSidebar
-      FillExpressions = <
-        item
-          SourceMemberName = 'number'
-          ControlMemberName = 'number'
-        end
-        item
-          SourceMemberName = 'sent_cnt'
-          ControlMemberName = 'count'
-          CustomFormat = #39'sent count: '#39'+%s'
-        end>
-      FillHeaderExpressions = <>
-      FillBreakGroups = <>
-    end
-  end
-  object BindSourceDB1: TBindSourceDB
-    DataSet = FDTableNumbers
-    ScopeMappings = <>
-    Left = 56
-    Top = 144
   end
   object StyleBookNumbersForm: TStyleBook
     Styles = <
@@ -324,5 +270,61 @@ object NumbersDBForm: TNumbersDBForm
       end>
     Left = 56
     Top = 200
+  end
+  object FDTableNumbers: TFDTable
+    IndexFieldNames = 'id'
+    AggregatesActive = True
+    Connection = DM.FDConnection
+    UpdateOptions.UpdateTableName = 'numbers'
+    TableName = 'numbers'
+    Left = 56
+    Top = 80
+    object FDTableNumbersid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object FDTableNumberstype_id: TIntegerField
+      FieldName = 'type_id'
+      Origin = 'type_id'
+    end
+    object FDTableNumbersnumber: TIntegerField
+      FieldName = 'number'
+      Origin = 'number'
+    end
+    object FDTableNumberssent_cnt: TIntegerField
+      FieldName = 'sent_cnt'
+      Origin = 'sent_cnt'
+    end
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 60
+    Top = 29
+    object LinkListControlToField1: TLinkListControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      Control = ListViewNumbersSidebar
+      FillExpressions = <
+        item
+          SourceMemberName = 'number'
+          ControlMemberName = 'number'
+        end
+        item
+          SourceMemberName = 'sent_cnt'
+          ControlMemberName = 'count'
+          CustomFormat = #39'sent count: '#39'+%s'
+        end>
+      FillHeaderExpressions = <>
+      FillBreakGroups = <>
+    end
+  end
+  object BindSourceDB1: TBindSourceDB
+    DataSet = FDTableNumbers
+    ScopeMappings = <>
+    Left = 56
+    Top = 144
   end
 end

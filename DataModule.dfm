@@ -7,7 +7,6 @@ object DM: TDM
     Params.Strings = (
       'Database=C:\Users\jaga\Desktop\SMSSender\db.sqlite3'
       'DriverID=SQLite')
-    Connected = True
     LoginPrompt = False
     Left = 88
     Top = 40
@@ -27,6 +26,7 @@ object DM: TDM
       FieldName = 'id'
       Origin = 'id'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object FDTableNumberstype_id: TIntegerField
       FieldName = 'type_id'
