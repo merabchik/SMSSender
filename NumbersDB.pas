@@ -31,6 +31,7 @@ type
     RectangleHeader: TRectangle;
     StyleBookNumbersForm: TStyleBook;
     FloatAnimationNumberInserting: TFloatAnimation;
+    Button1: TButton;
     procedure SpeedButtonSaveNumberClick(Sender: TObject);
     procedure ListViewNumbersSidebarDeletingItem(Sender: TObject;
       AIndex: Integer; var ACanDelete: Boolean);
@@ -40,6 +41,7 @@ type
     procedure FloatAnimationNumberInsertingFinish(Sender: TObject);
   private
     procedure SaveNumber;
+    function check4Dublicate(p_number: String): Boolean;
     { Private declarations }
   public
     { Public declarations }
@@ -95,21 +97,44 @@ procedure TNumbersDBForm.SaveNumber;
 begin
   if not EditNumber.Text.IsEmpty then
   begin
-    SpeedButtonSaveNumber.ImageIndex := 1;
-    with FDTableNumbers do
+    if self.check4Dublicate(EditNumber.Text) = False then
     begin
-      Insert;
-      fieldByName('number').AsString := EditNumber.Text;
-      fieldByName('sent_cnt').AsInteger := 0;
-      Post;
+      SpeedButtonSaveNumber.ImageIndex := 1;
+      with FDTableNumbers do
+      begin
+        Insert;
+        fieldByName('number').AsString := EditNumber.Text;
+        fieldByName('sent_cnt').AsInteger := 0;
+        Post;
+      end;
+      FDTableNumbers.Refresh;
+      SpeedButtonSaveNumber.ImageIndex := 0;
+      FloatAnimationNumberInserting.Start;
+    end
+    else
+    begin
+      ShowMessage('This number is already exists in database');
     end;
-    FDTableNumbers.Refresh;
-    SpeedButtonSaveNumber.ImageIndex := 0;
-    FloatAnimationNumberInserting.Start;
   end
   else
   begin
     ShowMessage('Fill phone number!');
+  end;
+end;
+
+function TNumbersDBForm.check4Dublicate(p_number: String): Boolean;
+begin
+  with DM.FDQueryCustom do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('select count(1) as c from numbers t where t.number="' +
+      p_number + '"');
+    Active := True;
+    if fieldByName('c').AsInteger > 0 then
+      Result := True
+    else
+      Result := False;
   end;
 end;
 

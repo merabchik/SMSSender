@@ -25,6 +25,7 @@ object NumbersDBForm: TNumbersDBForm
     Size.Height = 478.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
+    ItemAppearance.ItemHeight = 70
     ItemAppearanceObjects.ItemObjects.ObjectsCollection = <
       item
         AppearanceObjectName = 'number'
@@ -68,7 +69,7 @@ object NumbersDBForm: TNumbersDBForm
       Margins.Left = 5.000000000000000000
       Margins.Top = 5.000000000000000000
       Margins.Right = 5.000000000000000000
-      Size.Width = 365.000000000000000000
+      Size.Width = 325.000000000000000000
       Size.Height = 50.000000000000000000
       Size.PlatformDefault = False
       OnKeyDown = EditNumberKeyDown
@@ -85,14 +86,23 @@ object NumbersDBForm: TNumbersDBForm
     end
     object SpeedButtonSaveNumber: TSpeedButton
       Align = Right
-      Images = mainForm.ImageList1
-      ImageIndex = 0
-      Position.X = 375.000000000000000000
+      Position.X = 367.000000000000000000
       Position.Y = 4.000000000000000000
-      Size.Width = 40.000000000000000000
+      Size.Width = 48.000000000000000000
       Size.Height = 48.000000000000000000
       Size.PlatformDefault = False
+      StyleLookup = 'donetoolbutton'
       OnClick = SpeedButtonSaveNumberClick
+    end
+    object Button1: TButton
+      Align = Left
+      Position.Y = 12.000000000000000000
+      Size.Width = 32.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'cleareditbutton'
+      TabOrder = 1
+      Text = 'Button1'
     end
   end
   object StyleBookNumbersForm: TStyleBook

@@ -19,6 +19,7 @@ type
     FDTableNumberstype_id: TIntegerField;
     FDTableNumbersnumber: TIntegerField;
     FDTableNumberssent_cnt: TIntegerField;
+    FDQueryCustom: TFDQuery;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }

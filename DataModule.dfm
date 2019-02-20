@@ -41,4 +41,9 @@ object DM: TDM
       Origin = 'sent_cnt'
     end
   end
+  object FDQueryCustom: TFDQuery
+    Connection = FDConnection
+    Left = 280
+    Top = 240
+  end
 end

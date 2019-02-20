@@ -26,7 +26,8 @@ uses
   FMX.ImgList, FMX.ListView.Types, FMX.ListView.Appearances,
   FMX.ListView.Adapters.Base, FMX.ListView,
   System.Permissions, FMX.Objects,
-  FMX.Ani, FMX.Layouts, FMX.LoadingIndicator;
+  FMX.Ani, FMX.Layouts, FMX.LoadingIndicator,
+  FMX.DialogService, Androidapi.JNI.Widget;
 
 type
   TmainForm = class(TForm)
@@ -40,7 +41,6 @@ type
     RectanglePreloader: TRectangle;
     FMXLoadingIndicator1: TFMXLoadingIndicator;
     procedure ButtonSendSMSClick(Sender: TObject);
-    procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure SidebarButtonClick(Sender: TObject);
@@ -61,13 +61,7 @@ implementation
 
 {$R *.fmx}
 
-uses DataModule, HelperUnit
-
-{$IFDEF ANDROID}
-    ,
-  Androidapi.JNI.Widget,
-{$ENDIF}
-  FMX.DialogService, NumbersDB;
+uses DataModule, HelperUnit, NumbersDB;
 
 {$IFDEF ANDROID}
 
@@ -85,7 +79,8 @@ end;
 procedure TmainForm.FormCreate(Sender: TObject);
 begin
   SMSPermissionGranted := 22;
-  // TMessageManager.DefaultManager.SubscribeToMessage(self.SMSPermissionRequestResult, self.doSMSPermission);
+  self.BannerAd1.AdUnitID := 'ca-app-pub-6537744019921634/4591765968';
+  self.BannerAd1.LoadAd;
 end;
 
 procedure TmainForm.doSMSPermission;
@@ -118,37 +113,34 @@ procedure TmainForm.ButtonSendSMSClick(Sender: TObject);
 var
   I: Integer;
   filename: string;
-
 begin
   self.doSMSPermission;
-  if SMSPermissionGranted = 1 then
-  begin
-    try
-      DM.FDTableNumbers.Active := True;
-      DM.FDTableNumbers.First;
-      RectanglePreloader.visible := True;
-      FMXLoadingIndicator1.Enabled := True;
-      while not DM.FDTableNumbers.eof do
-      begin
-        self.SendSMS(DM.FDTableNumbers.fieldbyname('number').asString,
-          MemoSMSText.Text);
-        I := I + 1;
-        Label1.Text := 'Sended SMS: ' + IntToStr(I);
-        DM.FDTableNumbers.Next;
-      end;
-      RectanglePreloader.visible := False;
-      FMXLoadingIndicator1.Enabled := False;
-    Except
-      ShowMessage
-        ('Please read app description on play.google.com/store/apps/details?id=com.mchikvaidze.SMSSender');
-    end;
-  end;
-end;
+  try
+    DM.FDTableNumbers.Active := True;
+    DM.FDTableNumbers.First;
+    RectanglePreloader.visible := True;
+    FMXLoadingIndicator1.Enabled := True;
+    I := 0;
+    while not DM.FDTableNumbers.eof do
+    begin
+      self.SendSMS(DM.FDTableNumbers.fieldbyname('number').asString,
+        MemoSMSText.Text);
+      I := I + 1;
+      Label1.Text := 'Sended SMS: ' + IntToStr(I);
 
-procedure TmainForm.FormShow(Sender: TObject);
-begin
-  self.BannerAd1.AdUnitID := 'ca-app-pub-6537744019921634/4591765968';
-  self.BannerAd1.LoadAd;
+      DM.FDTableNumbers.Edit;
+      DM.FDTableNumbers.fieldbyname('sent_cnt').AsInteger :=
+        DM.FDTableNumbers.fieldbyname('sent_cnt').AsInteger + 1;
+      DM.FDTableNumbers.Post;
+
+      DM.FDTableNumbers.Next;
+    end;
+    RectanglePreloader.visible := False;
+    FMXLoadingIndicator1.Enabled := False;
+  Except
+    ShowMessage
+      ('Please read app description on play.google.com/store/apps/details?id=com.mchikvaidze.SMSSender');
+  end;
 end;
 
 procedure TmainForm.SendSMS(target, messagestr: string);
