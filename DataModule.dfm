@@ -6,7 +6,10 @@ object DM: TDM
   object FDConnection: TFDConnection
     Params.Strings = (
       'Database=C:\Users\jaga\Desktop\SMSSender\db.sqlite3'
+      'Encrypt=aes-128'
       'DriverID=SQLite')
+    FormatOptions.AssignedValues = [fvDefaultParamDataType]
+    FormatOptions.DefaultParamDataType = ftString
     LoginPrompt = False
     Left = 88
     Top = 40
