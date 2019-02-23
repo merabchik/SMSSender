@@ -5,7 +5,7 @@ object DM: TDM
   Width = 580
   object FDConnection: TFDConnection
     Params.Strings = (
-      'Database=C:\Users\jaga\Desktop\SMSSender\db.sqlite3'
+      'Database=E:\Dropbox\projects\SMSSender\db.sqlite3'
       'Encrypt=aes-128'
       'DriverID=SQLite')
     FormatOptions.AssignedValues = [fvDefaultParamDataType]

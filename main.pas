@@ -92,7 +92,9 @@ begin
     begin
       if (Length(AGrantResults) = 1) and
         (AGrantResults[0] = TPermissionStatus.Granted) then
-        ButtonSendSMS.Enabled := True
+      begin
+        ButtonSendSMS.Enabled := True;
+      end
       else
       begin
         ButtonSendSMS.Enabled := False;
@@ -114,7 +116,16 @@ var
   I: Integer;
   filename: string;
 begin
-  self.doSMSPermission;
+  if TOSVersion.Major >= 6 then // Check(6)
+  begin
+    if (not PermissionsService.IsPermissionGranted
+      (JStringToString(TJManifest_permission.JavaClass.SEND_SMS))) then
+    begin
+      self.doSMSPermission;
+      TDialogService.ShowMessage('Click again on send button');
+      exit;
+    end;
+  end;
   try
     DM.FDTableNumbers.Active := True;
     DM.FDTableNumbers.First;
@@ -127,18 +138,17 @@ begin
         MemoSMSText.Text);
       I := I + 1;
       Label1.Text := 'Sended SMS: ' + IntToStr(I);
-
       DM.FDTableNumbers.Edit;
       DM.FDTableNumbers.fieldbyname('sent_cnt').AsInteger :=
         DM.FDTableNumbers.fieldbyname('sent_cnt').AsInteger + 1;
       DM.FDTableNumbers.Post;
-
       DM.FDTableNumbers.Next;
     end;
+    TDialogService.ShowMessage(Label1.Text);
     RectanglePreloader.visible := False;
     FMXLoadingIndicator1.Enabled := False;
   Except
-    ShowMessage
+    TDialogService.ShowMessage
       ('Please read app description on play.google.com/store/apps/details?id=com.mchikvaidze.SMSSender');
   end;
 end;

@@ -9,6 +9,7 @@ object NumbersDBForm: TNumbersDBForm
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
+  OnClose = FormClose
   DesignerMasterStyle = 3
   object ListViewNumbersSidebar: TListView
     ItemAppearanceClassName = 'TDynamicAppearance'
@@ -44,6 +45,12 @@ object NumbersDBForm: TNumbersDBForm
         Appearance.Align = Trailing
         Appearance.VertAlign = Trailing
         Appearance.PlaceOffset.X = -30.000000000000000000
+      end
+      item
+        AppearanceObjectName = 'textID'
+        AppearanceClassName = 'TTextObjectAppearance'
+        Appearance.Width = 10.000000000000000000
+        Appearance.PlaceOffset.X = -100.000000000000000000
       end>
     ItemAppearanceObjects.ItemEditObjects.ObjectsCollection = <
       item
@@ -53,6 +60,10 @@ object NumbersDBForm: TNumbersDBForm
     ItemAppearanceObjects.HeaderObjects.Text.Visible = False
     ItemAppearanceObjects.FooterObjects.Text.Visible = False
     OnDeletingItem = ListViewNumbersSidebarDeletingItem
+    OnPullRefresh = ListViewNumbersSidebarPullRefresh
+    SearchVisible = True
+    SelectionCrossfade = True
+    PullToRefresh = True
   end
   object RectangleHeader: TRectangle
     Align = Top
@@ -103,6 +114,7 @@ object NumbersDBForm: TNumbersDBForm
       StyleLookup = 'cleareditbutton'
       TabOrder = 1
       Text = 'Button1'
+      OnClick = Button1Click
     end
   end
   object StyleBookNumbersForm: TStyleBook
@@ -326,6 +338,10 @@ object NumbersDBForm: TNumbersDBForm
           SourceMemberName = 'sent_cnt'
           ControlMemberName = 'count'
           CustomFormat = #39'sent count: '#39'+%s'
+        end
+        item
+          SourceMemberName = 'id'
+          ControlMemberName = 'textID'
         end>
       FillHeaderExpressions = <>
       FillBreakGroups = <>

@@ -39,9 +39,13 @@ type
     procedure EditNumberKeyDown(Sender: TObject; var Key: Word;
       var KeyChar: Char; Shift: TShiftState);
     procedure FloatAnimationNumberInsertingFinish(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure ListViewNumbersSidebarPullRefresh(Sender: TObject);
   private
     procedure SaveNumber;
     function check4Dublicate(p_number: String): Boolean;
+    procedure deleteRecord(p_id: String);
     { Private declarations }
   public
     { Public declarations }
@@ -76,6 +80,11 @@ begin
   EditNumber.Text := '';
 end;
 
+procedure TNumbersDBForm.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := TCloseAction.caFree;
+end;
+
 procedure TNumbersDBForm.FormCreate(Sender: TObject);
 begin
   self.FDTableNumbers.Active := True;
@@ -83,9 +92,21 @@ end;
 
 procedure TNumbersDBForm.ListViewNumbersSidebarDeletingItem(Sender: TObject;
   AIndex: Integer; var ACanDelete: Boolean);
+var
+  vID: String;
 begin
-  FDTableNumbers.Delete;
-  FDTableNumbers.Refresh;
+  FDTableNumbers.Close;
+  vID := TListItemText(ListViewNumbersSidebar.Items[AIndex].View.FindDrawable
+    ('textID')).Text;
+  self.deleteRecord(vID);
+  FDTableNumbers.Active := True;
+end;
+
+procedure TNumbersDBForm.ListViewNumbersSidebarPullRefresh(Sender: TObject);
+begin
+  self.ListViewNumbersSidebar.PullRefreshWait := True;
+  self.FDTableNumbers.Refresh;
+  self.ListViewNumbersSidebar.PullRefreshWait := False;
 end;
 
 procedure TNumbersDBForm.SpeedButtonSaveNumberClick(Sender: TObject);
@@ -122,6 +143,11 @@ begin
   end;
 end;
 
+procedure TNumbersDBForm.Button1Click(Sender: TObject);
+begin
+  self.Close;
+end;
+
 function TNumbersDBForm.check4Dublicate(p_number: String): Boolean;
 begin
   with DM.FDQueryCustom do
@@ -135,6 +161,17 @@ begin
       Result := True
     else
       Result := False;
+  end;
+end;
+
+procedure TNumbersDBForm.deleteRecord(p_id: String);
+begin
+  with DM.FDQueryCustom do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('delete from numbers t where t.id=' + p_id);
+    ExecSQL;
   end;
 end;
 
