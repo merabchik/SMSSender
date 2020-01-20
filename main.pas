@@ -40,10 +40,15 @@ type
     RectangleHeader: TRectangle;
     RectanglePreloader: TRectangle;
     FMXLoadingIndicator1: TFMXLoadingIndicator;
+    Rectangle1: TRectangle;
     procedure ButtonSendSMSClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure SidebarButtonClick(Sender: TObject);
+    procedure FormVirtualKeyboardShown(Sender: TObject;
+      KeyboardVisible: Boolean; const Bounds: TRect);
+    procedure FormVirtualKeyboardHidden(Sender: TObject;
+      KeyboardVisible: Boolean; const Bounds: TRect);
   private
     procedure SendSMS(target, messagestr: string);
     procedure Split(Delimiter: Char; Str: string; ListOfStrings: TStrings);
@@ -52,6 +57,8 @@ type
   public
     { Public declarations }
     SMSPermissionGranted: Integer;
+    memoHeight: Single;
+    memoAlign: TAlignLayout;
   end;
 
 var
@@ -81,6 +88,24 @@ begin
   SMSPermissionGranted := 22;
   self.BannerAd1.AdUnitID := 'ca-app-pub-6537744019921634/4591765968';
   self.BannerAd1.LoadAd;
+end;
+
+procedure TmainForm.FormVirtualKeyboardHidden(Sender: TObject;
+KeyboardVisible: Boolean; const Bounds: TRect);
+begin
+  // MemoSMSText.Height := memoHeight;
+  // MemoSMSText.Align := memoAlign;
+end;
+
+procedure TmainForm.FormVirtualKeyboardShown(Sender: TObject;
+KeyboardVisible: Boolean; const Bounds: TRect);
+begin {
+    memoHeight := MemoSMSText.Height;
+    memoAlign := MemoSMSText.Align;
+
+    MemoSMSText.Align := TAlignLayout.None;
+    MemoSMSText.Position.Y := (self.Height - Bounds.Height) - MemoSMSText.Height + 50;
+    MemoSMSText.Height := self.Height - Bounds.Height; }
 end;
 
 procedure TmainForm.doSMSPermission;

@@ -1,33 +1,33 @@
 ﻿[FDTableNumbers]
 Visible=True
-Coordinates=341,390,99,33
+Coordinates=339,442,116,36
 
 [FDTableNumberstype_id]
-Coordinates=523,1,135,33
+Coordinates=523,1,157,36
 
 [SpeedButtonSaveNumber]
-Coordinates=374,231,141,51
+Coordinates=10,442,163,58
 
 [FDTableNumberssent_cnt]
-Coordinates=523,56,141,33
+Coordinates=523,56,164,36
 
 [FDTableNumbersnumber]
-Coordinates=523,111,137,33
+Coordinates=523,111,159,36
 
 [BindingsList1]
-Coordinates=322,133,82,33
+Coordinates=322,133,91,36
 
 [FDTableNumbersid]
-Coordinates=322,243,108,33
+Coordinates=322,243,126,36
 
 [EditNumber]
-Coordinates=10,380,72,51
+Coordinates=420,270,82,58
 
 [BindSourceDB1]
-Coordinates=232,380,92,141
+Coordinates=249,43,106,168
 
 [ListViewNumbersSidebar]
-Coordinates=10,10,138,195
+Coordinates=10,10,159,234
 Visible=True
 
 [Form1.]
@@ -37,20 +37,20 @@ Coordinates=689,176,156,36
 Coordinates=118,442,55,36
 
 [StyleBookNumbersForm]
-Coordinates=311,1,135,33
+Coordinates=311,1,154,36
 
 [Button1]
-Coordinates=154,231,53,51
+Coordinates=335,270,59,58
 
 [DM.FDQueryCustom]
-Coordinates=233,231,115,51
+Coordinates=175,270,134,58
 
 [DM.FDTableNumbers]
-Coordinates=10,231,118,123
+Coordinates=10,270,139,146
 
 [FloatAnimationNumberInserting]
-Coordinates=602,166,171,33
+Coordinates=602,166,196,36
 
 [RectangleHeader]
-Coordinates=108,380,98,33
+Coordinates=199,442,114,36
 

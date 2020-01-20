@@ -2,7 +2,7 @@ object NumbersDBForm: TNumbersDBForm
   Left = 0
   Top = 0
   Caption = 'Form2'
-  ClientHeight = 543
+  ClientHeight = 476
   ClientWidth = 415
   StyleBook = StyleBookNumbersForm
   FormFactor.Width = 320
@@ -23,7 +23,7 @@ object NumbersDBForm: TNumbersDBForm
     Margins.Right = 5.000000000000000000
     Margins.Bottom = 5.000000000000000000
     Size.Width = 405.000000000000000000
-    Size.Height = 478.000000000000000000
+    Size.Height = 361.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
     ItemAppearance.ItemHeight = 70
@@ -49,8 +49,9 @@ object NumbersDBForm: TNumbersDBForm
       item
         AppearanceObjectName = 'textID'
         AppearanceClassName = 'TTextObjectAppearance'
-        Appearance.Width = 10.000000000000000000
-        Appearance.PlaceOffset.X = -100.000000000000000000
+        Appearance.Width = 1.000000000000000000
+        Appearance.Align = Trailing
+        Appearance.PlaceOffset.X = 150.000000000000000000
       end>
     ItemAppearanceObjects.ItemEditObjects.ObjectsCollection = <
       item
@@ -59,7 +60,8 @@ object NumbersDBForm: TNumbersDBForm
       end>
     ItemAppearanceObjects.HeaderObjects.Text.Visible = False
     ItemAppearanceObjects.FooterObjects.Text.Visible = False
-    OnDeletingItem = ListViewNumbersSidebarDeletingItem
+    CanSwipeDelete = False
+    OnItemClick = ListViewNumbersSidebarItemClick
     OnPullRefresh = ListViewNumbersSidebarPullRefresh
     SearchVisible = True
     SelectionCrossfade = True
@@ -77,10 +79,10 @@ object NumbersDBForm: TNumbersDBForm
       Align = Client
       TabOrder = 0
       KeyboardType = NumberPad
-      Margins.Left = 5.000000000000000000
+      Margins.Left = 20.000000000000000000
       Margins.Top = 5.000000000000000000
-      Margins.Right = 5.000000000000000000
-      Size.Width = 325.000000000000000000
+      Margins.Right = 20.000000000000000000
+      Size.Width = 275.000000000000000000
       Size.Height = 50.000000000000000000
       Size.PlatformDefault = False
       OnKeyDown = EditNumberKeyDown
@@ -97,7 +99,8 @@ object NumbersDBForm: TNumbersDBForm
     end
     object SpeedButtonSaveNumber: TSpeedButton
       Align = Right
-      Position.X = 367.000000000000000000
+      Margins.Right = 10.000000000000000000
+      Position.X = 357.000000000000000000
       Position.Y = 4.000000000000000000
       Size.Width = 48.000000000000000000
       Size.Height = 48.000000000000000000
@@ -107,6 +110,8 @@ object NumbersDBForm: TNumbersDBForm
     end
     object Button1: TButton
       Align = Left
+      Margins.Left = 10.000000000000000000
+      Position.X = 10.000000000000000000
       Position.Y = 12.000000000000000000
       Size.Width = 32.000000000000000000
       Size.Height = 30.000000000000000000
@@ -293,6 +298,23 @@ object NumbersDBForm: TNumbersDBForm
     Left = 56
     Top = 200
   end
+  object Button2: TButton
+    Align = Bottom
+    Images = mainForm.ImageList1
+    ImageIndex = 5
+    Margins.Left = 4.000000000000000000
+    Margins.Top = 2.000000000000000000
+    Margins.Right = 4.000000000000000000
+    Margins.Bottom = 4.000000000000000000
+    Position.X = 4.000000000000000000
+    Position.Y = 428.000000000000000000
+    Size.Width = 407.000000000000000000
+    Size.Height = 44.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    Text = 'Import numbers from contact list'
+    OnClick = Button2Click
+  end
   object FDTableNumbers: TFDTable
     IndexFieldNames = 'id'
     AggregatesActive = True
@@ -352,5 +374,9 @@ object NumbersDBForm: TNumbersDBForm
     ScopeMappings = <>
     Left = 56
     Top = 144
+  end
+  object AddressBook1: TAddressBook
+    Left = 56
+    Top = 256
   end
 end
